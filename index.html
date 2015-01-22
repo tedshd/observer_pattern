@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>ob_pattern</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<!-- <link rel="stylesheet" href="http://necolas.github.io/normalize.css/3.0.2/normalize.css"> -->
+<!-- <script src="/lib/jquery-1.10.1.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-2.1.1.js"></script> -->
+</head>
+<body>
+    <a id="t_1" href="javascript:void(0)">Fire</a>
+    <a id="t_2" href="javascript:void(0)">un publish</a>
+    <a id="t_3" href="javascript:void(0)">async</a>
+    <a id="t_4" href="javascript:void(0)">un publish logA</a>
+    <a id="t_5" href="javascript:void(0)">add arg</a>
+</body>
+<script src="javascript/ob.js"></script>
+<script>
+    OB.publish('alarm', function () {
+        alert('RED ALERT');
+    });
+
+    function logA (async) {
+        console.log('log GG');
+        console.log(async);
+        if (async && typeof(async) === 'function') {
+            async();
+        }
+    }
+    OB.publish('log', logA);
+
+
+    function logB (async) {
+        console.log('log GG2');
+    }
+    OB.publish('log', logB);
+
+    OB.publish('async', function (async) {
+        console.log('ASYNC');
+        var obj = {
+            'user': 'ted_shiu',
+            'password': '123456'
+        },
+        jsonData;
+        jsonData = JSON.stringify(obj);
+        var xmlHttpRequest = new XMLHttpRequest();
+        xmlHttpRequest.open('PUT', '../../demo/php/json.php', true);
+        xmlHttpRequest.onreadystatechange = function(e) {
+            if (xmlHttpRequest.status === 200 && xmlHttpRequest.readyState === 4) {
+                console.log(xmlHttpRequest.responseText);
+                if (async) {
+                    async();
+                }
+            }
+        };
+        xmlHttpRequest.send(jsonData);
+    });
+
+    // setTimeout(function () {
+    //     OB.fire('log', function (argument) {
+    //         console.log('test1');
+    //     });
+    //     OB.fire('alarm', console.log('test2'));
+    //     OB.fire('log', console.log('test3'));
+    // }, 3000);
+    // console.log(OB.hub);
+    document.querySelector('#t_1').addEventListener('click', function (e) {
+        e.preventDefault();
+        OB.fire('log');
+    });
+    document.querySelector('#t_2').addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log(OB.hub);
+        OB.fire('log');
+        OB.unPublish('log');
+        console.log(OB.hub);
+        OB.unPublish('log');
+        OB.fire('log');
+    });
+    document.querySelector('#t_3').addEventListener('click', function (e) {
+        e.preventDefault();
+        OB.fire('async', function () {
+            OB.fire('log');
+        });
+    });
+    document.querySelector('#t_4').addEventListener('click', function (e) {
+        e.preventDefault();
+        OB.fire('log');
+        console.log('--------');
+        OB.unPublish('', logA);
+        OB.fire('log');
+    });
+    document.querySelector('#t_5').addEventListener('click', function (e) {
+        e.preventDefault();
+        function test (arg) {
+            console.log('arg');
+            // console.log(arg);
+        }
+        var arg = 'HAHA';
+        OB.fire('log', function (argument) {
+            console.log('i');
+        });
+    });
+</script>
+</html>
