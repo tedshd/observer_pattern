@@ -19,9 +19,9 @@ This is min function observer pattern implementing
 
 `OB.publish(action, callback);`
 
-action(`string`): action for fire, it is not unique
+action[`string`]: action for fire, it is not unique
 
-callback(`function`): Something to do
+callback[`function`]: Something to do
 
 ```javascript
 function redAlert() {
@@ -35,9 +35,9 @@ OB.publish('alarm', redAlert);
 
 `OB.unPublish(action, callback name);`
 
-action(`string`): cancel publish action
+action[`string`]: cancel publish action
 
-callback name(`var`): it is a option if want cancel something want to do but in many actions, can point function name to cancel it
+callback name[`var`]: it is a option if want cancel something want to do but in many actions, can point function name to cancel it
 
 ```javascript
 OB.unPublish('alarm');
@@ -49,7 +49,7 @@ OB.unPublish('', redAlert);
 
 `OB.fire(action);`
 
-action(`string`): fire action(s) to do something
+action[`string`]: fire action(s) to do something
 
 ```javascript
 OB.fire('alarm');
