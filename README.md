@@ -1,6 +1,8 @@
 # observer_pattern
 Follow JavaScript design pattern(observer pattern) and implementing this pattern.
 
+![Alt text](img/observer_pattern_basic.png)
+
 [DevNote](http://tedshd.logdown.com/posts/252556-javascript-cross-module-communication)
 
 ## Intro
