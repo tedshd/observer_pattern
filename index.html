@@ -37,6 +37,7 @@
         console.log('log GG2');
     }
     OB.publish('log', logB);
+    OB.publish('log_b', logB);
 
     OB.publish('async', function (async) {
         console.log('ASYNC');
@@ -59,14 +60,6 @@
         xmlHttpRequest.send(jsonData);
     });
 
-    // setTimeout(function () {
-    //     OB.fire('log', function (argument) {
-    //         console.log('test1');
-    //     });
-    //     OB.fire('alarm', console.log('test2'));
-    //     OB.fire('log', console.log('test3'));
-    // }, 3000);
-    // console.log(OB.hub);
     document.querySelector('#t_1').addEventListener('click', function (e) {
         e.preventDefault();
         OB.fire('log');
@@ -90,8 +83,12 @@
         e.preventDefault();
         OB.fire('log');
         console.log('--------');
-        OB.unPublish('', logA);
+        // OB.unPublish('', logA);
+        // OB.unPublish('', logB);
+        // OB.unPublish('log_b');
+        // OB.unPublish('log', logB);
         OB.fire('log');
+        OB.fire('log_b');
     });
     document.querySelector('#t_5').addEventListener('click', function (e) {
         e.preventDefault();

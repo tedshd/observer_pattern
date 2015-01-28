@@ -28,7 +28,7 @@ function redAlert() {
     alert('RED ALERT');
 }
 
-OB.publish('alarm', redAlert);
+B.publish('alarm', redAlert);
 ```
 
 ### unPublish
@@ -42,15 +42,27 @@ callback name[`var`]: it is a option if want cancel something want to do but in 
 ```javascript
 OB.unPublish('alarm');
 // or
+function redAlert() {
+    alert('alert');
+}
 OB.unPublish('', redAlert);
+// or
+OB.unPublish('alarm', redAlert);
 ```
 
 ### fire
 
-`OB.fire(action);`
+`OB.fire(action, callback);`
 
 action[`string`]: fire action(s) to do something
 
+callback[`function`]: Something to do, it can handle if publish is async behavior
+
 ```javascript
 OB.fire('alarm');
+// or
+function funcA() {
+    console.log('fin');
+}
+OB.fire('alarm', funcA);
 ```

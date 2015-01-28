@@ -19,7 +19,7 @@ var OB = {
     unPublish: function (action, something) {
         var actionState = false,
             x, y;
-        if (action) {
+        if (action && !something) {
             for (x = OB.hub.length - 1; x >= 0; x--) {
                 if (OB.hub[x].action && OB.hub[x].action === action) {
                     OB.hub.splice(x, 1);
@@ -27,12 +27,22 @@ var OB = {
                 }
             }
         }
-        if (something) {
+        if (!action && something) {
             for (y = OB.hub.length - 1; y >= 0; y--) {
                 if (OB.hub[y].doSomething === something) {
                     OB.hub.splice(y, 1);
                     actionState = true;
-                    break;
+                }
+            }
+        }
+        if (action && something) {
+            for (z = OB.hub.length - 1; z >= 0; z--) {
+                if (OB.hub[z].action && OB.hub[z].action === action) {
+                    if (OB.hub[z].doSomething === something) {
+                        OB.hub.splice(z, 1);
+                        actionState = true;
+                        break;
+                    }
                 }
             }
         }
