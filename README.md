@@ -9,6 +9,8 @@ Follow JavaScript design pattern(observer pattern) and implementing this pattern
 
 This is min function observer pattern implementing
 
+It can handle cross module communication
+
 `hub` is a array tmp actions
 
 `publish` include a action and something want to do and publish to `hub` provide subscribe
